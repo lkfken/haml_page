@@ -1,0 +1,28 @@
+!!!
+/[if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+/[if IE 7] <html class="no-js lt-ie9 lt-ie8">
+/[if IE 8] <html class="no-js lt-ie9">
+/ [if gt IE 8]><!
+%html
+  / <![endif]
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %title #{title}
+    %meta{content: "Sample page", name: "description"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    / Place favicon.ico and apple-touch-icon.png in the root directory
+    %link{href: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css', rel: 'stylesheet'}/
+
+  %body
+    .container
+      / Static navbar
+      .navbar.navbar-default{role: "navigation"}
+        .navbar-header
+          %a.navbar-brand{href: "/"}
+            = 'Haml Page Example'
+      %div
+        = yield
+      %footer{class: 'top-buffer'}
+        %small{class: 'text-muted'} Kenneth Leung
+    %script{src: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"}
