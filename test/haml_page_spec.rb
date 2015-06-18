@@ -33,7 +33,7 @@ describe HamlPage do
     File.open('./output/page.html', 'w') { |f| f.puts @page }
   end
 
-  it 'should allow user defined variables' do
+  it 'should allow user defined values' do
     @page.view       = IO.read('./user_defined.haml')
     @page.my_comment = 'Hello World'
     @page.name       = 'Kenneth'
