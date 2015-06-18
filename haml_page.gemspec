@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version     = HamlPage::VERSION
   spec.authors     = ["Kenneth Leung"]
   spec.email       = ["kenneth@leungs.us"]
-  spec.summary     = %q{TODO: Write a short summary. Required.}
-  spec.description = %q{TODO: Write a longer description. Optional.}
+  spec.summary     = %q{This gem will generate a web page (.html) based on given Haml layout and view.}
+  spec.description = %q{This gem will generate a web page (.html) based on given Haml layout and view.}
   spec.homepage    = ""
   spec.license     = "MIT"
 
