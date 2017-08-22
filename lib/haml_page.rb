@@ -1,6 +1,5 @@
 require 'haml'
 class HamlPage
-  VERSION = "0.0.1"
   attr_accessor :layout, :view, :__user_defined_methods
 
   def initialize
