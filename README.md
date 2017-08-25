@@ -7,7 +7,7 @@ This gem will generate a web page (.html) based on given Haml layout and view.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'haml_page', :github => 'lkfken/haml_page'
+gem 'haml_page', :git => 'https://github.com/lkfken/haml_page.git'
 ```
 
 And then execute:
