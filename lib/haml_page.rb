@@ -16,6 +16,8 @@ class HamlPage
     end
   end
 
+  alias_method :to_str, :to_s
+
   private
 
   def rendered_view(template, &block)
