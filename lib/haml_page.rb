@@ -22,7 +22,7 @@ class HamlPage
   private
 
   def render_template(template,**options, &blk)
-    return  Haml::Template.new(escape_html: false){template.to_s}.render(context) if template.nil?
+    return  Haml::Template.new(options){template.to_s}.render(context){yield if block_given?} if template.nil?
     if File.exist?(template)
       Haml::Template.new(template, options).render(context){yield if block_given?}
     elsif template.is_a? String

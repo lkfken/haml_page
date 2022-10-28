@@ -6,6 +6,10 @@ describe HamlPage do
     @page = HamlPage.new
   end
 
+  it 'should render to empty string for no view and no layout' do
+    expect(@page.to_s).to eq("")
+  end
+  
   it 'should render view' do
     @page.view = IO.read('./test/view.haml')
     expect(@page.to_s).to eq("<h3>Here is my view</h3>\n<p>\n1\n</p>\n<p>\n2\n</p>\n<p>\n3\n</p>\n")
