@@ -1,18 +1,19 @@
+require 'ostruct'
 require 'haml'
 class HamlPage
-  attr_accessor :layout, :view, :__user_defined_methods
+  attr_accessor :layout, :view, :context
 
-  def initialize
-    @__user_defined_methods = Hash.new
-    @layout                 = nil
-    @view                   = nil
+  def initialize(layout:nil, view:nil, context: nil)
+    @context = context || OpenStruct.new
+    @layout                 = layout
+    @view                   = view
   end
 
   def to_s
     if layout.nil?
-      rendered_view(view)
+     render_template(view)
     else
-      rendered_view(layout) { rendered_view(view) }
+        render_template(layout, escape_html: false){render_template(view)}
     end
   end
 
@@ -20,29 +21,25 @@ class HamlPage
 
   private
 
-  def rendered_view(template, &block)
-    engine = Object.new
-    Haml::Engine.new(String(template)).def_method(engine, :render, *locals.keys)
-    engine.render(locals){yield}
+  def render_template(template,**options, &blk)
+    return  Haml::Template.new(escape_html: false){template.to_s}.render(context) if template.nil?
+    if File.exist?(template)
+      Haml::Template.new(template, options).render(context){yield if block_given?}
+    elsif template.is_a? String
+      Haml::Template.new(options){template}.render(context){yield if block_given?}
+    else
+      raise "Can't load the template file. Pass a string with a path or an object that responds to 'to_str', 'path' or 'to_path'"
+    end
   end
 
   def method_missing(meth, *args, &block)
     if is_user_defined_setter?(meth)
-      aname = meth.to_s.sub('=', '')
-      __user_defined_methods.merge!({aname.to_sym => args.first})
-    elsif is_user_defined_getter?(meth)
-      __user_defined_methods[meth]
+      context.send(meth, *args)
+    elsif context.respond_to?(meth)
+      context.send(meth)
     else
       super
     end
-  end
-
-  def locals
-    __user_defined_methods.merge(:__user_defined_methods => __user_defined_methods.keys)
-  end
-
-  def is_user_defined_getter?(meth)
-    __user_defined_methods.has_key?(meth)
   end
 
   def is_user_defined_setter?(meth)

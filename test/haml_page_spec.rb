@@ -7,20 +7,20 @@ describe HamlPage do
   end
 
   it 'should render view' do
-    @page.view = IO.read('./view.haml')
+    @page.view = IO.read('./test/view.haml')
     expect(@page.to_s).to eq("<h3>Here is my view</h3>\n<p>\n1\n</p>\n<p>\n2\n</p>\n<p>\n3\n</p>\n")
   end
 
   it 'should render layout' do
-    @page.layout = IO.read('./layout.haml')
+    @page.layout = IO.read('./test/layout.haml')
     @page.title = 'Title - Haml Page Sample'
     expect(@page.to_s).to start_with('<!DOCTYPE html>')
     expect(@page.to_s).to match(/<title>Title - Haml Page Sample<\/title>/)
   end
 
   it 'should render both the layout and the view' do
-    @page.view   = IO.read('./view.haml')
-    @page.layout = IO.read('./layout.haml')
+    @page.view   = IO.read('./test/view.haml')
+    @page.layout = IO.read('./test/layout.haml')
     @page.title = 'Title - Haml Page Sample'
     expect(@page.to_s).to start_with('<!DOCTYPE html>')
     expect(@page.to_s).to match(/Here is my view/)
@@ -34,7 +34,7 @@ describe HamlPage do
   # end
 
   it 'should allow user defined values' do
-    @page.view       = IO.read('./user_defined.haml')
+    @page.view       = IO.read('./test/user_defined.haml')
     @page.my_comment = 'Hello World'
     @page.name       = 'Kenneth'
     expect(@page.to_s).to eq("<h3>Hello World.  My name is Kenneth</h3>\n")
