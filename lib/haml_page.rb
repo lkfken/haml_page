@@ -13,7 +13,7 @@ class HamlPage
     if layout.nil?
      render_template(view)
     else
-        render_template(layout, escape_html: false){render_template(view)}
+        render_template(layout, escape_html: false){render_template(view, escape_html: false)}
     end
   end
 
