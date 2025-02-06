@@ -7,9 +7,9 @@ describe HamlPage do
   end
 
   it 'should render to empty string for no view and no layout' do
-    expect(@page.to_s).to eq("")
+    expect(@page.to_s).to eq('')
   end
-  
+
   it 'should render view' do
     @page.view = IO.read('./test/view.haml')
     expect(@page.to_s).to eq("<h3>Here is my view</h3>\n<p>\n1\n</p>\n<p>\n2\n</p>\n<p>\n3\n</p>\n")
@@ -19,7 +19,7 @@ describe HamlPage do
     @page.layout = IO.read('./test/layout.haml')
     @page.title = 'Title - Haml Page Sample'
     expect(@page.to_s).to start_with('<!DOCTYPE html>')
-    expect(@page.to_s).to match(/<title>Title - Haml Page Sample<\/title>/)
+    expect(@page.to_s).to match(%r{<title>Title - Haml Page Sample</title>})
   end
 
   it 'should render both the layout and the view' do
